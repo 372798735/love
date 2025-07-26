@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="记录我们在一起的每一天 - 爱的计时器">
+    <meta name="theme-color" content="#ff6b6b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>我们的爱情计时器</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="./favicon.svg">
+    <link rel="manifest" href="./manifest.json">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <!-- 加载动画 -->
+    <div class="loading" id="loading">
+        <div class="loading-heart"></div>
+        <p>加载中...</p>
+    </div>
+    
+    <!-- 横屏提示 -->
+    <div id="orientation-tip" class="orientation-tip" style="display: none;">
+        <div class="orientation-icon">📱</div>
+        <p>请旋转设备至竖屏模式<br>获得最佳浏览体验</p>
+    </div>
+    
+    <div id="app" style="display: none;">
+        <div class="container">
+            <div class="love-card">
+                <h1 class="title">爱的计时器</h1>
+                <div class="heart-container">
+                    <div class="heart"></div>
+                </div>
+                <div class="counter">
+                    <h2>我们在一起</h2>
+                    <div class="days">{{ days }}</div>
+                    <h2>天了</h2>
+                </div>
+                <div class="date-info">
+                    <p>从 {{ startDate }} 开始</p>
+                    <p>每一天都是甜蜜的回忆</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 将音乐播放器移到页面右下角 -->
+        <div class="music-player">
+            <button @click="toggleMusic" class="music-btn" aria-label="播放/暂停背景音乐">
+                <span v-if="isPlaying">❚❚</span>
+                <span v-else>▶</span>
+            </button>
+            <audio ref="bgMusic" loop preload="auto" @canplaythrough="handleMusicLoaded" @error="handleMusicError">
+                <source src="https://music.163.com/song/media/outer/url?id=1824045033.mp3" type="audio/mpeg">
+                <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Scott_Holmes/Inspiring__Upbeat_Music/Scott_Holmes_-_04_-_Upbeat_Party.mp3" type="audio/mpeg">
+                您的浏览器不支持音频元素。
+            </audio>
+            <div v-if="musicError" class="music-error">音乐加载失败，请检查网络连接</div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
